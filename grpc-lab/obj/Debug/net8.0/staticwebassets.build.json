@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "LdV6ckAY3HPZ2xbGYw3a5+OXNtGrNPBfy0tgEWJbVZ4=",
+  "Source": "grpc-lab",
+  "BasePath": "_content/grpc-lab",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
