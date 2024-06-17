@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("grpc-lab")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf492f0ef85846a4df6534d932b8972bb44e5f7e")]
 [assembly: System.Reflection.AssemblyProductAttribute("grpc-lab")]
 [assembly: System.Reflection.AssemblyTitleAttribute("grpc-lab")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
