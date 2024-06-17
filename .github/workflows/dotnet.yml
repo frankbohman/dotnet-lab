@@ -27,7 +27,7 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
         cache: true
-        cache-dependency-path: '**/package-lock.json'
+        # cache-dependency-path: '**/package-lock.json'
 
     - name: Install dependencies
       run: dotnet restore 
