@@ -46,10 +46,10 @@ jobs:
       run: dotnet restore 
 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore /p:Version=${{ steps.versioning.outputs.version }}
 
     - name: Test with dotnet
-      run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+      run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}.${{ steps.versioning.outputs.version }}"
 
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v4
