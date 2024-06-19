@@ -16,28 +16,29 @@ runs:
   steps:
 
     - name: Install tools
-      run: sudo apt install -y libarchive-tools
+      run: |
+        sudo apt install -y libarchive-tools
 
     - name: Install convco
-      curl -OL https://github.com/convco/convco/releases/latest/download/convco-deb.zip
-      unzip convco-deb.zip
-      sudo dpkg -i convco*.deb
-
+      run: |
+        curl -OL https://github.com/convco/convco/releases/download/v0.5.1/convco-ubuntu.zip
+      
     - uses: actions/checkout@v4
       with:
         path: "repo"
         fetch-depth: 0
 
-    - id: convco
-      run: |
+    # - id: convco
+    #   shell: bash
+    #   run: |
 
-        if [[ ${{ inputs.release }} == "true" ]]
-        then
-          VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
-        else
-          VERSION=$(convco version -C ${{ github.workspace }}/repo --prerelease dev --bump)
-        fi
+        # if [[ ${{ inputs.release }} == "true" ]]
+        # then
+        #   VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
+        # else
+        #   VERSION=$(convco version -C ${{ github.workspace }}/repo --prerelease dev --bump)
+        # fi
 
-        echo ":balloon: Got a new version: $VERSION" >> $GITHUB_STEP_SUMMARY
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-      shell: bash
+        # echo ":balloon: Got a new version: $VERSION" >> $GITHUB_STEP_SUMMARY
+        # echo "version=$VERSION" >> $GITHUB_OUTPUT
+      

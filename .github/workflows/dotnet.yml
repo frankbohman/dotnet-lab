@@ -19,7 +19,8 @@ jobs:
         dotnet-version: [ '8.0.x' ]
 
     steps:
-
+    # ...
+    # ...
     - name: Generate Version
       id: versioning
       uses: frankbohman/dotnet-lab/.github/actions/versioning@main
