@@ -16,6 +16,7 @@ runs:
   steps:
 
     - name: Install tools
+      shell: bash
       run: |
         sudo apt install -y libarchive-tools
 
@@ -28,17 +29,17 @@ runs:
         path: "repo"
         fetch-depth: 0
 
-    # - id: convco
-    #   shell: bash
-    #   run: |
+    - id: convco
+      shell: bash
+      run: |
 
-        # if [[ ${{ inputs.release }} == "true" ]]
-        # then
-        #   VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
-        # else
-        #   VERSION=$(convco version -C ${{ github.workspace }}/repo --prerelease dev --bump)
-        # fi
+        if [[ ${{ inputs.release }} == "true" ]]
+        then
+          VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
+        else
+          VERSION=$(convco version -C ${{ github.workspace }}/repo --prerelease dev --bump)
+        fi
 
-        # echo ":balloon: Got a new version: $VERSION" >> $GITHUB_STEP_SUMMARY
-        # echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo ":balloon: Got a new version: $VERSION" >> $GITHUB_STEP_SUMMARY
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
       
