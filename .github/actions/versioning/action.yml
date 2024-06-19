@@ -18,9 +18,10 @@ runs:
     - name: Install tools
       shell: bash
       run: |
-        sudo apt install -y libarchive-tools
+        apt install -y libarchive-tools
 
     - name: Install convco
+      shell: bash
       run: |
         curl -OL https://github.com/convco/convco/releases/download/v0.5.1/convco-ubuntu.zip
       
