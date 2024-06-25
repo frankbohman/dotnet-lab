@@ -27,13 +27,15 @@ runs:
         chmod a+x /usr/local/bin/convco
       
     - uses: actions/checkout@v4
+      permissions:
+        contents: write
       with:
         fetch-depth: 0
         ref: ${{ github.event.repository.default_branch }}
 
     - run: |
-        git config user.name "Github Actions Bot"
-        git config user.email "<>"
+        git config user.name github-actions
+        git config user.email github-actions@github.com
 
         VERSION=${{ inputs.version }}
 
