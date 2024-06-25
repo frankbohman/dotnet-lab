@@ -33,7 +33,7 @@ runs:
     - id: convco
       shell: bash
       run: |
-      
+
         git config user.name github-actions
         git config user.email github-actions@github.com
 
@@ -41,8 +41,8 @@ runs:
         then
           VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
           git tag v$VERSION
-          convco changelog > ${{ inputs.changelog-path }}
-          git add ${{ inputs.changelog-path }}
+          convco changelog > CHANGELOG.md
+          git add CHANGELOG.md
           git commit -am "chore: Updating changelog"
           git push
           git push origin v$VERSION
