@@ -1,42 +1,65 @@
-name: Generate changelog
-on:
-  workflow_call:
-    secrets:
-      svsactionsbot_app_id:
-        description: Appid
-        required: true
-      svsactionsbot_private_key:
-        description: Private key
-        required: true
-    inputs:
-      changelog-path:
-        description: Path to changelog
-        default: CHANGELOG.md
-        type: string
-      update-major-tag:
-        description: "Creates or updates the tag for major version, example: v1"
-        default: false
-        type: boolean
-jobs:
-  generate-version:
-    runs-on: ${{ vars.ARC_RUNNER }}
-    outputs:
-      version: ${{ steps.generate-version.outputs.version  }}
-    steps:
-      - name: Generate version
-        id: generate-version
-        uses: SvenskaSpelAB/generate-version-action@v1
-        with:
-          release: true
-  tag-branch-and-generate-changelog:
-    runs-on: ${{ vars.ARC_RUNNER }}
-    needs: generate-version
-    steps:
-      - name: Tag branch with latest version and generate changelog
-        uses: SvenskaSpelAB/versioning-action@v1
-        with:
-          version: ${{ needs.generate-version.outputs.version }}
-          changelog-path: ${{ inputs.changelog-path }}
-          update-major-tag: ${{ inputs.update-major-tag }}
-          app-id: ${{ secrets.svsactionsbot_app_id }}
-          private-key: ${{ secrets.svsactionsbot_private_key }}
+name: 'generate-changelog'
+description: 'generate changelog'
+branding:
+  icon: 'git-commit'
+  color: 'red'
+inputs:
+  release:
+    description: "ready for release"
+    default: false
+outputs:
+  version:
+    description: "Version released"
+    value: ${{ steps.convco.outputs.version }}
+runs:
+  using: "composite"
+  steps:
+
+    - name: Install tools
+      shell: bash
+      run: |
+        sudo apt install -y libarchive-tools
+
+    - name: Install convco
+      shell: bash
+      run: |
+        curl -#L https://github.com/convco/convco/releases/download/v0.5.1/convco-ubuntu.zip | bsdtar -xf- - -C /usr/local/bin/
+        chmod a+x /usr/local/bin/convco
+      
+    - uses: actions/checkout@v4
+      with:
+        path: "repo"
+        fetch-depth: 0
+
+    - run: |
+        git config user.name "Github Actions Bot"
+        git config user.email "<>"
+
+        VERSION=${{ inputs.version }}
+
+        # If the version starts with a v, remove it
+        if [[ $VERSION == v* ]]; then
+          VERSION=${VERSION:1}
+        fi
+
+        # Tag with the full version
+        if [[ "${{ inputs.push-tag }}" == "true" ]]; then
+          git tag v$VERSION
+        fi
+       
+
+        convco changelog > ${{ inputs.changelog-path }}
+        git add ${{ inputs.changelog-path }}
+        git commit -am "chore: Updating changelog"
+        git push
+        git push origin v$VERSION
+
+        if [[ "${{ inputs.update-major-tag }}" == "true" ]]; then
+          if [[ $VERSION =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)(.*)$ ]]; then
+                # Create or update the major version tag
+                git tag -f v${BASH_REMATCH[1]}
+                git push origin v${BASH_REMATCH[1]} --force
+          fi
+        fi
+      shell: bash
+      

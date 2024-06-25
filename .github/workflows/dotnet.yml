@@ -23,15 +23,15 @@ jobs:
     # ...
     - name: Generate Version
       id: versioning
-      uses: frankbohman/dotnet-lab/.github/actions/versioning@main
+      uses: frankbohman/dotnet-lab/.github/actions/version@main
       with:
         artifact: "dummy"
 
-    - name: Print Version
-      run: echo $NEW_VERSION
-      shell: bash
-      env:
-        NEW_VERSION: ${{ steps.versioning.outputs.version }}
+    - name: Update Version
+      id: changelog
+      uses: frankbohman/dotnet-lab/.github/actions/changelog@main
+      with:
+        version: ${{ steps.versioning.outputs.version }}
     
     - uses: actions/checkout@v4
 

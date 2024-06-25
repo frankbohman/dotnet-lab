@@ -5,7 +5,7 @@ branding:
   color: 'red'
 inputs:
   release:
-    description: "ready for release"
+    description: "publish"
     default: false
 outputs:
   version:
@@ -35,13 +35,24 @@ runs:
       shell: bash
       run: |
 
+        git config user.name "Github Actions Bot"
+        git config user.email "<>"
+
         if [[ ${{ inputs.release }} == "true" ]]
         then
           VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
+          git tag v$VERSION
+          convco changelog > ${{ inputs.changelog-path }}
+          git add ${{ inputs.changelog-path }}
+          git commit -am "chore: Updating changelog"
+          git push
+          git push origin v$VERSION
         else
           VERSION=$(convco version -C ${{ github.workspace }}/repo --prerelease dev --bump)
         fi
 
-        echo ":balloon: Got a new version: $VERSION" >> $GITHUB_STEP_SUMMARY
+
+
+        echo ":balloon: New version: $VERSION" >> $GITHUB_STEP_SUMMARY
         echo "version=$VERSION" >> $GITHUB_OUTPUT
       
