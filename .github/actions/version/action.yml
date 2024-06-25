@@ -29,7 +29,7 @@ runs:
       
     - uses: actions/checkout@v4
       with:
-        path: "repo"
+        # path: "repo"
         fetch-depth: 0
 
     - id: convco
