@@ -29,13 +29,11 @@ runs:
       
     - uses: actions/checkout@v4
       with:
-        # path: "repo"
         fetch-depth: 0
-
     - id: convco
       shell: bash
       run: |
-
+      
         git config user.name github-actions
         git config user.email github-actions@github.com
 
@@ -52,8 +50,5 @@ runs:
           VERSION=$(convco version -C ${{ github.workspace }}/repo --prerelease dev --bump)
         fi
 
-
-
         echo ":balloon: New version: $VERSION" >> $GITHUB_STEP_SUMMARY
         echo "version=$VERSION" >> $GITHUB_OUTPUT
-      
