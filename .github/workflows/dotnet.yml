@@ -28,11 +28,11 @@ jobs:
       with:
         artifact: "dummy"
 
-    - name: Update Version
-      id: changelog
-      uses: frankbohman/dotnet-lab/.github/actions/changelog@main
-      with:
-        version: ${{ steps.versioning.outputs.version }}
+    # - name: Update Version
+    #   id: changelog
+    #   uses: frankbohman/dotnet-lab/.github/actions/changelog@main
+    #   with:
+    #     version: ${{ steps.versioning.outputs.version }}
     
     - uses: actions/checkout@v4
 
