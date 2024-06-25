@@ -13,8 +13,7 @@ outputs:
     value: ${{ steps.convco.outputs.version }}
 runs:
   using: "composite"
-  permissions:
-    contents: write
+  
   steps:
 
     - name: Install tools
