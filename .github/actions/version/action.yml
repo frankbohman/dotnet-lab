@@ -13,6 +13,8 @@ outputs:
     value: ${{ steps.convco.outputs.version }}
 runs:
   using: "composite"
+  permissions:
+    contents: write
   steps:
 
     - name: Install tools
@@ -35,8 +37,8 @@ runs:
       shell: bash
       run: |
 
-        git config user.name "Github Actions Bot"
-        git config user.email "<>"
+        git config user.name github-actions
+        git config user.email github-actions@github.com
 
         if [[ ${{ inputs.release }} == "true" ]]
         then
