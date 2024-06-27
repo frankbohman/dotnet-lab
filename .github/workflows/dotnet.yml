@@ -20,17 +20,11 @@ jobs:
 
     steps:
     
-    - name: Generate Version
-      id: versioning
+    - name: Update Version
+      id: version
       uses: frankbohman/dotnet-lab/.github/actions/version@main
       with:
         artifact: "dummy"
-
-    # - name: Update Version
-    #   id: changelog
-    #   uses: frankbohman/dotnet-lab/.github/actions/changelog@main
-    #   with:
-    #     version: ${{ steps.versioning.outputs.version }}
     
     - uses: actions/checkout@v4
 
@@ -45,7 +39,7 @@ jobs:
       run: dotnet restore 
 
     - name: Build
-      run: dotnet build --no-restore /p:Version=${{ steps.versioning.outputs.version }}
+      run: dotnet build --no-restore /p:Version=${{ steps.version.outputs.version }}
 
     - name: Test with dotnet
       run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
