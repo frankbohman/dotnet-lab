@@ -51,7 +51,10 @@ runs:
 
         echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+    - id: convco
+      shell: bash
       run: |
+      
         git config user.name github-actions
         git config user.email github-actions@github.com
         
