@@ -22,7 +22,7 @@ jobs:
     
     - name: Update Version
       id: version
-      uses: frankbohman/dotnet-lab/.github/actions/version@main
+      uses: frankbohman/dotnet-lab/.github/actions/update-version@main
       with:
         artifact: "dummy"
     
