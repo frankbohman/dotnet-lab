@@ -24,7 +24,7 @@ jobs:
       id: version
       uses: frankbohman/dotnet-lab/.github/actions/update-version@main
       with:
-        artifact: "dummy"
+        release: true
     
     - uses: actions/checkout@v4
 
