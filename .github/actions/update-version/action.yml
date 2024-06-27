@@ -41,7 +41,7 @@ runs:
         VERSION="0.1"
 
         # if [[ ${{ inputs.release }} == "true" ]]
-        if: {{ github.ref == 'ref/head/main' }}
+        if [[ ${{ github.ref == 'ref/head/main' }} ]]
         then
         #   VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
         #   git tag $VERSION
