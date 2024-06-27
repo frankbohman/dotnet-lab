@@ -39,6 +39,8 @@ runs:
 
         VERSION=0.1
 
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
         # if [[ ${{ github.ref == 'refs/heads/main' }} ]]
         # then
         #   VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
@@ -54,4 +56,4 @@ runs:
         #   echo ":balloon: New dev version: $VERSION" >> $GITHUB_STEP_SUMMARY
         # fi
 
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        
