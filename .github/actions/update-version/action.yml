@@ -37,20 +37,20 @@ runs:
 
         git config user.name github-actions
         git config user.email github-actions@github.com
-
-        if [[ ${{ github.ref == 'refs/heads/main' }} ]]
-        then
-          VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
-          git tag $VERSION
-          convco changelog > CHANGELOG.md
-          git add CHANGELOG.md
-          git commit -am "chore: Updating changelog"
-          git push
-          git push origin $VERSION
-          echo ":balloon: New release version: $VERSION" >> $GITHUB_STEP_SUMMARY
-        else
-          VERSION=$(convco version -C ${{ github.workspace }}/repo --prerelease dev --bump)
-          echo ":balloon: New dev version: $VERSION" >> $GITHUB_STEP_SUMMARY
-        fi
+        VERSION=0.1
+        # if [[ ${{ github.ref == 'refs/heads/main' }} ]]
+        # then
+        #   VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
+        #   git tag $VERSION
+        #   convco changelog > CHANGELOG.md
+        #   git add CHANGELOG.md
+        #   git commit -am "chore: Updating changelog"
+        #   git push
+        #   git push origin $VERSION
+        #   echo ":balloon: New release version: $VERSION" >> $GITHUB_STEP_SUMMARY
+        # else
+        #   VERSION=$(convco version -C ${{ github.workspace }}/repo --prerelease dev --bump)
+        #   echo ":balloon: New dev version: $VERSION" >> $GITHUB_STEP_SUMMARY
+        # fi
 
         echo "version=$VERSION" >> $GITHUB_OUTPUT
