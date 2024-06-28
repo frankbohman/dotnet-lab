@@ -26,7 +26,9 @@ runs:
       run: |
         curl -#L https://github.com/convco/convco/releases/download/v0.5.1/convco-ubuntu.zip | bsdtar -xf- - -C /usr/local/bin/
         chmod a+x /usr/local/bin/convco
-        ls -lrta /usr/local/bin/ | grep con
+        ls -lrta /usr/local/bin | grep con
+        echo "/usr/local/bin" >> $GITHUB_PATH
+        echo $GITHUB_PATH
       
     - uses: actions/checkout@v4
       with:
@@ -37,7 +39,7 @@ runs:
       run: |
 
         ls -lrta /usr/local/bin/ | grep con
-        
+
         git config user.name github-actions
         git config user.email github-actions@github.com
 
