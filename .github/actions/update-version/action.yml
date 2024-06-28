@@ -38,6 +38,7 @@ runs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         VERSION=0.1
+        VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
         # if [[ ${{ github.ref == 'refs/heads/main' }} ]]
         # then
         #   VERSION=$(convco version -C ${{ github.workspace }}/repo --bump)
