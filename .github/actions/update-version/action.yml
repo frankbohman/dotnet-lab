@@ -28,7 +28,7 @@ runs:
         chmod a+x /usr/local/bin/convco
         ls -lrta /usr/local/bin | grep con
         echo "/usr/local/bin" >> $GITHUB_PATH
-        echo $GITHUB_PATH
+        convco
       
     - uses: actions/checkout@v4
       with:
