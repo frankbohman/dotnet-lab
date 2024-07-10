@@ -1,63 +1,63 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# # This workflow will build a .NET project
+# # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+# name: .NET
 
-on:
-  push:
-    branches:
-      - 'main'
-  pull_request:
-    types: [closed]
-    branches: [ 'main' ]
-permissions:
-  contents: write
-jobs:
+# on:
+#   push:
+#     branches:
+#       - 'main'
+#   pull_request:
+#     types: [closed]
+#     branches: [ 'main' ]
+# permissions:
+#   contents: write
+# jobs:
 
-  build:
-    runs-on: ubuntu-latest
+#   build:
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        dotnet-version: [ '8.0.x' ]
+#     strategy:
+#       matrix:
+#         dotnet-version: [ '8.0.x' ]
 
-    steps:
-    - uses: actions/checkout@v4
+#     steps:
+#     - uses: actions/checkout@v4
 
-    - name: Setup dotnet ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ matrix.dotnet-version }}
-          # cache: true
-          # cache-dependency-path: '**/packages.lock.json'
+#     - name: Setup dotnet ${{ matrix.dotnet-version }}
+#       uses: actions/setup-dotnet@v4
+#       with:
+#         dotnet-version: ${{ matrix.dotnet-version }}
+#           # cache: true
+#           # cache-dependency-path: '**/packages.lock.json'
 
-    - name: Update Version
-      id: generate_version
-      uses: frankbohman/dotnet-lab/.github/actions/update-version@main
-      with:
-        release: true
+#     - name: Update Version
+#       id: generate_version
+#       uses: frankbohman/dotnet-lab/.github/actions/update-version@main
+#       with:
+#         release: true
         
-    - name: Dump Version
-      env: 
-        VERSION: ${{ steps.generate_version.version.value }}
-      run: |
-        echo "New Version: ${VERSION}"
+#     - name: Dump Version
+#       env: 
+#         VERSION: ${{ steps.generate_version.version.value }}
+#       run: |
+#         echo "New Version: ${VERSION}"
 
-    - name: Install dependencies
-      run: dotnet restore 
+#     - name: Install dependencies
+#       run: dotnet restore 
 
-    - name: Test with dotnet
-      run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+#     - name: Test with dotnet
+#       run: dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
 
-    - name: Build
-      run: dotnet build --no-restore /p:Version=${{ steps.version.outputs.version }}
+#     - name: Build
+#       run: dotnet build --no-restore /p:Version=${{ steps.version.outputs.version }}
 
     
 
-    # - name: Upload dotnet test results
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: dotnet-results-${{ matrix.dotnet-version }}
-    #     path: TestResults-${{ matrix.dotnet-version }}
-    #   # Use always() to always run this step to publish test results when there are test failures
-    #   if: ${{ always() }}
+#     # - name: Upload dotnet test results
+#     #   uses: actions/upload-artifact@v4
+#     #   with:
+#     #     name: dotnet-results-${{ matrix.dotnet-version }}
+#     #     path: TestResults-${{ matrix.dotnet-version }}
+#     #   # Use always() to always run this step to publish test results when there are test failures
+#     #   if: ${{ always() }}

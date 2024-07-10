@@ -42,10 +42,12 @@ runs:
         
         git config user.name github-actions
         git config user.email github-actions@github.com
-        echo ":balloon: Release ${{ github.event.inputs.release }}" >> $GITHUB_STEP_SUMMARY
+        echo "Release ${{ github.event.inputs.release }}"
+
         if [[ ${{ github.event.inputs.release == true }} ]]
         then
           VERSION=$(convco version --bump)
+          echo "${VERSION}"
           echo ":balloon: New release version: $VERSION" >> $GITHUB_STEP_SUMMARY
 
           git tag $VERSION
@@ -53,9 +55,9 @@ runs:
           git add CHANGELOG.md
           git commit -am "chore: Updating changelog"
           git push
-          
         else
           VERSION=$(convco version --prerelease dev --bump)
+          echo "${VERSION}"
           echo ":balloon: New dev version: $VERSION" >> $GITHUB_STEP_SUMMARY
         fi
 
