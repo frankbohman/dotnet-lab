@@ -4,13 +4,14 @@
 name: Development
 
 on:
-  
   push:
     branches:
       - '!main'
-  # workflow_dispatch:
+  workflow_dispatch:
+
 permissions:
   contents: write
+  
 jobs:
 
   build:
