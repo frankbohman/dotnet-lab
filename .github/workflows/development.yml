@@ -31,12 +31,12 @@ jobs:
           # cache-dependency-path: '**/packages.lock.json'
 
     - name: Update Version
-      id: generate_version
+      id: version
       uses: frankbohman/dotnet-lab/.github/actions/update-version@pr_test_1
         
     - name: Dump Version
       env: 
-        VERSION: ${{ steps.generate_version.version.value }}
+        VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "New Version: ${VERSION}"
     
