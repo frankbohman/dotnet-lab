@@ -4,6 +4,7 @@
 name: .NET PR
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - '!main'
