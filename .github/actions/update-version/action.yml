@@ -33,6 +33,7 @@ runs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        ref: ${{ github.ref }}
 
     - id: convco
       shell: bash
@@ -41,9 +42,6 @@ runs:
         git config user.name github-actions
         git config user.email github-actions@github.com
 
-        
-        
-        
         if [[ ${{ github.ref == 'refs/heads/main' }} ]]
         then
           VERSION=$(convco version --bump)
