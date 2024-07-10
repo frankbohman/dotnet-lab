@@ -32,7 +32,7 @@ jobs:
 
     - name: Update Version
       id: generate_version
-      uses: frankbohman/dotnet-lab/.github/actions/update-version@main
+      uses: frankbohman/dotnet-lab/.github/actions/update-version@pr_test_1
       with:
         release: false
         
