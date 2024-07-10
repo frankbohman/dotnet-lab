@@ -6,8 +6,8 @@ branding:
 inputs:
   release:
     description: "bump version tag on the repository"
-    required: true
-    default: 'false'
+    required: false
+    default: false
 outputs:
   version:
     description: "generated version"
@@ -45,7 +45,7 @@ runs:
         echo "Release.... ${{ inputs.release }}"
         echo ":balloon: Release?: ${{ github.event.inputs.release }}" >> $GITHUB_STEP_SUMMARY
 
-        if [[ ${{ inputs.release == true }} ]]
+        if [[ ${{ inputs.release }} == true ]];
         then
           VERSION=$(convco version --bump)
           echo "${VERSION}"
