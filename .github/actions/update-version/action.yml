@@ -42,10 +42,10 @@ runs:
         
         git config user.name github-actions
         git config user.email github-actions@github.com
-        echo "Release.... ${{ github.event.inputs.release }}"
+        echo "Release.... ${{ inputs.release }}"
         echo ":balloon: Release?: ${{ github.event.inputs.release }}" >> $GITHUB_STEP_SUMMARY
 
-        if [[ ${{ github.event.inputs.release == true }} ]]
+        if [[ ${{ inputs.release == true }} ]]
         then
           VERSION=$(convco version --bump)
           echo "${VERSION}"
