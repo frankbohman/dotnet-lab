@@ -45,13 +45,14 @@ runs:
         if [[ ${{ github.ref == 'refs/heads/main' }} ]]
         then
           VERSION=$(convco version --bump)
+          echo ":balloon: New release version: $VERSION" >> $GITHUB_STEP_SUMMARY
+          
           git tag -fa $VERSION
           convco changelog > CHANGELOG.md
           git add CHANGELOG.md
           git commit -am "chore: Updating changelog"
-          git push
-          git push origin $VERSION
-          echo ":balloon: New release version: $VERSION" >> $GITHUB_STEP_SUMMARY
+          git push -f
+          
         else
           VERSION=$(convco version --prerelease dev --bump)
           echo ":balloon: New dev version: $VERSION" >> $GITHUB_STEP_SUMMARY
