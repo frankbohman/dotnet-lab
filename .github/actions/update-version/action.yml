@@ -7,7 +7,7 @@ inputs:
   release:
     description: "bump version tag on the repository"
     required: true
-    default: false
+    default: 'false'
 outputs:
   version:
     description: "generated version"
@@ -42,7 +42,7 @@ runs:
         
         git config user.name github-actions
         git config user.email github-actions@github.com
-        echo "Release ${{ github.event.inputs.release }}"
+        echo "Release.... ${{ github.event.inputs.release }}"
         echo ":balloon: Release?: ${{ github.event.inputs.release }}" >> $GITHUB_STEP_SUMMARY
 
         if [[ ${{ github.event.inputs.release == true }} ]]

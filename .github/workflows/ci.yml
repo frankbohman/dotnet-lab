@@ -33,7 +33,7 @@ jobs:
       id: generate_version
       uses: frankbohman/dotnet-lab/.github/actions/update-version@pr_test_1
       with:
-        release: false
+        release: 'false'
         
     - name: Dump Version
       env: 
