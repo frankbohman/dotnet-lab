@@ -5,11 +5,12 @@ branding:
   color: 'red'
 inputs:
   release:
-    description: "publish"
+    description: "bump version tag on the repository"
+    required: true
     default: false
 outputs:
   version:
-    description: "Generated version"
+    description: "generated version"
     value: ${{ steps.convco.outputs.version }}
 runs:
   using: "composite"
@@ -42,16 +43,16 @@ runs:
         git config user.name github-actions
         git config user.email github-actions@github.com
 
-        if [[ ${{ github.ref == 'refs/heads/main' }} ]]
+        if [[ ${{ github.event.inputs.release == true }} ]]
         then
           VERSION=$(convco version --bump)
           echo ":balloon: New release version: $VERSION" >> $GITHUB_STEP_SUMMARY
-          
-          git tag -fa $VERSION
+
+          git tag $VERSION
           convco changelog > CHANGELOG.md
           git add CHANGELOG.md
           git commit -am "chore: Updating changelog"
-          git push -f
+          git push
           
         else
           VERSION=$(convco version --prerelease dev --bump)
